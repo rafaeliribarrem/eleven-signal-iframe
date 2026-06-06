@@ -251,6 +251,7 @@
 
           const duration = 6000;
           let startedAt = performance.now();
+          let timerId = null;
 
           const clamp = (value, min = 0, max = 1) =>
             Math.min(max, Math.max(min, value));
@@ -282,12 +283,18 @@
 
           const restart = () => {
             startedAt = Date.now();
+            if (timerId) window.clearInterval(timerId);
+            timerId = window.setInterval(tick, 16);
           };
 
           const tick = () => {
-            const now = Date.now();
-            const progress = ((now - startedAt) % duration) / duration;
+            const progress = Math.min(1, (Date.now() - startedAt) / duration);
             render(progress);
+
+            if (progress >= 1) {
+              window.clearInterval(timerId);
+              timerId = null;
+            }
           };
 
           card.addEventListener("click", restart);
@@ -306,8 +313,7 @@
 
           resize();
           render(0);
-          startedAt = Date.now();
-          window.setInterval(tick, 16);
+          restart();
         };
 
         initSignal(document.querySelector("[data-signal-shell]"));
