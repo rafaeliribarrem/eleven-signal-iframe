@@ -250,9 +250,11 @@
           bindSvgIds(shell);
 
           const duration = 6000;
+          const startDelay = 3000;
           let elapsed = 0;
           let playhead = null;
           let timerId = null;
+          let delayId = null;
           let hasFinished = false;
           let isActive = false;
           let isInView = false;
@@ -291,12 +293,19 @@
             timerId = null;
           };
 
+          const clearDelay = () => {
+            if (!delayId) return;
+            window.clearTimeout(delayId);
+            delayId = null;
+          };
+
           const getProgress = () => {
             const running = playhead ? Date.now() - playhead : 0;
             return Math.min(1, (elapsed + running) / duration);
           };
 
           const pause = () => {
+            clearDelay();
             if (playhead !== null) {
               elapsed += Date.now() - playhead;
               playhead = null;
@@ -313,13 +322,29 @@
             timerId = window.setInterval(tick, 16);
           };
 
+          const schedulePlay = () => {
+            clearDelay();
+            if (hasFinished || isActive || !isInView) return;
+
+            if (elapsed > 0) {
+              play();
+              return;
+            }
+
+            delayId = window.setTimeout(() => {
+              delayId = null;
+              play();
+            }, startDelay);
+          };
+
           const setVisible = (visible) => {
             isInView = visible;
-            if (visible) play();
+            if (visible) schedulePlay();
             else pause();
           };
 
           const restart = () => {
+            clearDelay();
             elapsed = 0;
             playhead = null;
             hasFinished = false;
@@ -365,7 +390,7 @@
 
           document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === "hidden") pause();
-            else if (isInView) play();
+            else if (isInView) schedulePlay();
           });
 
           if (window.self === window.top && "IntersectionObserver" in window) {
