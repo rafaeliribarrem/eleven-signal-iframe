@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eleven Signal</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      [data-signal-shell],
+      [data-signal-shell] * {
+        box-sizing: border-box;
+      }
+
+      [data-signal-shell] {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+        background: transparent;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      [data-signal-stage] {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 731.5px;
+        height: 233px;
+        overflow: hidden;
+        transform-origin: bottom right;
+        will-change: transform;
+      }
+
+      [data-signal-card] {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 673px;
+        height: 389px;
+        overflow: hidden;
+        color: #f6f4f3;
+        cursor: pointer;
+        outline: none;
+      }
+
+      [data-signal-wave] {
+        position: absolute;
+        top: 188.625px;
+        left: -67.5px;
+        width: 799px;
+        height: 304.875px;
+        pointer-events: none;
+      }
+
+      [data-signal-marker] {
+        position: absolute;
+        inset: 0;
+        transform: translateX(-370.5px);
+        pointer-events: none;
+      }
+
+      [data-signal-value] {
+        position: absolute;
+        top: 156.02px;
+        left: 441px;
+        width: max-content;
+        transform: translateX(-50%);
+        color: #f6f4f3;
+        font-size: 24.963px;
+        font-weight: 500;
+        line-height: normal;
+        white-space: nowrap;
+      }
+
+      [data-signal-line] {
+        position: absolute;
+        top: 191.5px;
+        left: 440.5px;
+        width: 1px;
+        height: 211px;
+        background: #f6f4f3;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-signal-shell>
+      <div data-signal-stage>
+        <div
+          data-signal-card
+          role="img"
+          aria-label="Animated revenue counter from zero to 720,011 dollars"
+          tabindex="0"
+        >
+          <svg
+            data-signal-wave
+            viewBox="0 0 799 304.875"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <pattern
+                data-signal-pattern-solid
+                width="13"
+                height="340"
+                patternUnits="userSpaceOnUse"
+              >
+                <path d="M1 0V340" stroke="#F6F4F3" stroke-width="1" />
+              </pattern>
+
+              <pattern
+                data-signal-pattern-dashed
+                width="13"
+                height="340"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M1 0V340"
+                  stroke="#F6F4F3"
+                  stroke-width="1"
+                  stroke-dasharray="10 10"
+                />
+              </pattern>
+
+              <clipPath data-signal-clip-path clipPathUnits="userSpaceOnUse">
+                <rect data-signal-progress x="0" y="0" width="138" height="305" />
+              </clipPath>
+            </defs>
+
+            <g opacity="0.2">
+              <path
+                data-signal-fill-solid
+                d="M241.993 123.015C212.875 123.015 204.678 127.366 143.399 148.411C124.064 155.052 90.1616 162.131 64.9023 160.824C39.643 159.517 11.1094 148.085 0 142.532V304.875H799V13.833C772.396 10.2399 765.817 -11.6708 710.417 8.27999C668.5 23.3754 595 97.8751 560 97.8751C532.299 97.8751 496.5 103.015 457.993 103.015C432.15 103.015 392.878 131.419 353.411 131.419C313.943 131.419 278.391 123.015 241.993 123.015Z"
+              />
+              <path
+                data-signal-fill-dashed
+                d="M241.993 123.015C212.875 123.015 204.678 127.366 143.399 148.411C124.064 155.052 90.1616 162.131 64.9023 160.824C39.643 159.517 11.1094 148.085 0 142.532V304.875H799V13.833C772.396 10.2399 765.817 -11.6708 710.417 8.27999C668.5 23.3754 595 97.8751 560 97.8751C532.299 97.8751 496.5 103.015 457.993 103.015C432.15 103.015 392.878 131.419 353.411 131.419C313.943 131.419 278.391 123.015 241.993 123.015Z"
+                clip-path="inset(0 56px 0 521px)"
+              />
+            </g>
+
+            <g data-signal-active-group>
+              <path
+                data-signal-fill-solid
+                d="M241.993 123.015C212.875 123.015 204.678 127.366 143.399 148.411C124.064 155.052 90.1616 162.131 64.9023 160.824C39.643 159.517 11.1094 148.085 0 142.532V304.875H799V13.833C772.396 10.2399 765.817 -11.6708 710.417 8.27999C668.5 23.3754 595 97.8751 560 97.8751C532.299 97.8751 496.5 103.015 457.993 103.015C432.15 103.015 392.878 131.419 353.411 131.419C313.943 131.419 278.391 123.015 241.993 123.015Z"
+              />
+              <path
+                data-signal-fill-dashed
+                d="M241.993 123.015C212.875 123.015 204.678 127.366 143.399 148.411C124.064 155.052 90.1616 162.131 64.9023 160.824C39.643 159.517 11.1094 148.085 0 142.532V304.875H799V13.833C772.396 10.2399 765.817 -11.6708 710.417 8.27999C668.5 23.3754 595 97.8751 560 97.8751C532.299 97.8751 496.5 103.015 457.993 103.015C432.15 103.015 392.878 131.419 353.411 131.419C313.943 131.419 278.391 123.015 241.993 123.015Z"
+                clip-path="inset(0 56px 0 521px)"
+              />
+            </g>
+          </svg>
+
+          <div data-signal-marker>
+            <span data-signal-value>$0</span>
+            <span data-signal-line></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const WAVE_RIGHT = 731.5;
+        const CROP_HEIGHT = 233;
+        const WAVE_OFFSET = 67.5;
+
+        const applyLayoutStyles = (shell, stage) => {
+          Object.assign(shell.style, {
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            minHeight: "0",
+            overflow: "hidden",
+            background: "transparent",
+          });
+
+          Object.assign(stage.style, {
+            position: "absolute",
+            right: "0",
+            bottom: "0",
+            left: "auto",
+            top: "auto",
+            width: `${WAVE_RIGHT}px`,
+            height: `${CROP_HEIGHT}px`,
+            overflow: "hidden",
+            transformOrigin: "bottom right",
+          });
+        };
+
+        const getBounds = () => ({
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientHeight,
+        });
+
+        const bindSvgIds = (shell) => {
+          const uid =
+            shell.dataset.signalUid ||
+            `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+
+          shell.dataset.signalUid = uid;
+
+          const patternSolid = shell.querySelector("[data-signal-pattern-solid]");
+          const patternDashed = shell.querySelector("[data-signal-pattern-dashed]");
+          const clipPath = shell.querySelector("[data-signal-clip-path]");
+          const activeGroup = shell.querySelector("[data-signal-active-group]");
+          const solidFills = shell.querySelectorAll("[data-signal-fill-solid]");
+          const dashedFills = shell.querySelectorAll("[data-signal-fill-dashed]");
+
+          const solidId = `wf-bars-solid-${uid}`;
+          const dashedId = `wf-bars-dashed-${uid}`;
+          const clipId = `wf-progress-clip-${uid}`;
+
+          patternSolid.id = solidId;
+          patternDashed.id = dashedId;
+          clipPath.id = clipId;
+          activeGroup.setAttribute("clip-path", `url(#${clipId})`);
+
+          solidFills.forEach((node) => {
+            node.setAttribute("fill", `url(#${solidId})`);
+          });
+
+          dashedFills.forEach((node) => {
+            node.setAttribute("fill", `url(#${dashedId})`);
+          });
+        };
+
+        const initSignal = (shell) => {
+          if (!shell || shell.dataset.signalReady === "true") return;
+
+          const stage = shell.querySelector("[data-signal-stage]");
+          const card = shell.querySelector("[data-signal-card]");
+          const marker = shell.querySelector("[data-signal-marker]");
+          const valueNode = shell.querySelector("[data-signal-value]");
+          const progressRect = shell.querySelector("[data-signal-progress]");
+
+          if (!stage || !card || !marker || !valueNode || !progressRect) return;
+
+          shell.dataset.signalReady = "true";
+          applyLayoutStyles(shell, stage);
+          bindSvgIds(shell);
+
+          const duration = 6000;
+          let startedAt = performance.now();
+
+          const clamp = (value, min = 0, max = 1) =>
+            Math.min(max, Math.max(min, value));
+
+          const easeInOut = (value) => {
+            const x = clamp(value);
+            return x < 0.5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2;
+          };
+
+          const resize = () => {
+            const { width, height } = getBounds();
+            if (!width || !height) return;
+
+            const scale = Math.min(width / WAVE_RIGHT, height / CROP_HEIGHT);
+            stage.style.transform = `scale(${scale})`;
+          };
+
+          const render = (progress) => {
+            const counter = easeInOut((progress - 0.1) / 0.68);
+            const amount = Math.round(720011 * counter);
+            const markerX = -370.5 * (1 - counter);
+            const markerPosition = 441 + markerX;
+            const activeWidth = markerPosition + WAVE_OFFSET;
+
+            marker.style.transform = `translateX(${markerX.toFixed(2)}px)`;
+            progressRect.setAttribute("width", activeWidth.toFixed(2));
+            valueNode.textContent = `$${amount.toLocaleString("en-US")}`;
+          };
+
+          const restart = () => {
+            startedAt = Date.now();
+          };
+
+          const tick = () => {
+            const now = Date.now();
+            const progress = ((now - startedAt) % duration) / duration;
+            render(progress);
+          };
+
+          card.addEventListener("click", restart);
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              restart();
+            }
+          });
+
+          if ("ResizeObserver" in window) {
+            new ResizeObserver(resize).observe(document.documentElement);
+          }
+
+          window.addEventListener("resize", resize, { passive: true });
+
+          resize();
+          render(0);
+          startedAt = Date.now();
+          window.setInterval(tick, 16);
+        };
+
+        initSignal(document.querySelector("[data-signal-shell]"));
+      })();
+    </script>
+  </body>
+</html>
