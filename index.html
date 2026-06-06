@@ -315,7 +315,7 @@
           };
 
           const play = () => {
-            if (hasFinished || isActive || !isInView) return;
+            if (hasFinished || isActive) return;
             isActive = true;
             playhead = Date.now();
             stopTimer();
@@ -324,7 +324,7 @@
 
           const schedulePlay = () => {
             clearDelay();
-            if (hasFinished || isActive || !isInView) return;
+            if (hasFinished || isActive) return;
 
             if (elapsed > 0) {
               play();
@@ -349,6 +349,7 @@
             playhead = null;
             hasFinished = false;
             isActive = false;
+            isInView = true;
             stopTimer();
             render(0);
             play();
@@ -393,12 +394,19 @@
             else if (isInView) schedulePlay();
           });
 
-          if (window.self === window.top && "IntersectionObserver" in window) {
+          const inIframe = window.self !== window.top;
+
+          if (inIframe) {
+            window.parent.postMessage({ signal: "ready" }, "*");
+            setVisible(true);
+          } else if ("IntersectionObserver" in window) {
             const visibilityObserver = new IntersectionObserver(
               ([entry]) => setVisible(entry.isIntersecting),
-              { threshold: 0.35 },
+              { threshold: 0.2, rootMargin: "0px 0px -5% 0px" },
             );
             visibilityObserver.observe(shell);
+          } else {
+            setVisible(true);
           }
 
           resize();
