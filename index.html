@@ -250,8 +250,12 @@
           bindSvgIds(shell);
 
           const duration = 6000;
-          let startedAt = performance.now();
+          let elapsed = 0;
+          let playhead = null;
           let timerId = null;
+          let hasFinished = false;
+          let isActive = false;
+          let isInView = false;
 
           const clamp = (value, min = 0, max = 1) =>
             Math.min(max, Math.max(min, value));
@@ -281,19 +285,62 @@
             valueNode.textContent = `$${amount.toLocaleString("en-US")}`;
           };
 
-          const restart = () => {
-            startedAt = Date.now();
-            if (timerId) window.clearInterval(timerId);
+          const stopTimer = () => {
+            if (!timerId) return;
+            window.clearInterval(timerId);
+            timerId = null;
+          };
+
+          const getProgress = () => {
+            const running = playhead ? Date.now() - playhead : 0;
+            return Math.min(1, (elapsed + running) / duration);
+          };
+
+          const pause = () => {
+            if (playhead !== null) {
+              elapsed += Date.now() - playhead;
+              playhead = null;
+            }
+            isActive = false;
+            stopTimer();
+          };
+
+          const play = () => {
+            if (hasFinished || isActive || !isInView) return;
+            isActive = true;
+            playhead = Date.now();
+            stopTimer();
             timerId = window.setInterval(tick, 16);
           };
 
+          const setVisible = (visible) => {
+            isInView = visible;
+            if (visible) play();
+            else pause();
+          };
+
+          const restart = () => {
+            elapsed = 0;
+            playhead = null;
+            hasFinished = false;
+            isActive = false;
+            stopTimer();
+            render(0);
+            play();
+          };
+
           const tick = () => {
-            const progress = Math.min(1, (Date.now() - startedAt) / duration);
+            if (!isActive) return;
+
+            const progress = getProgress();
             render(progress);
 
             if (progress >= 1) {
-              window.clearInterval(timerId);
-              timerId = null;
+              elapsed = duration;
+              playhead = null;
+              hasFinished = true;
+              isActive = false;
+              stopTimer();
             }
           };
 
@@ -311,9 +358,26 @@
 
           window.addEventListener("resize", resize, { passive: true });
 
+          window.addEventListener("message", (event) => {
+            if (event.data?.signal === "visible") setVisible(true);
+            if (event.data?.signal === "hidden") setVisible(false);
+          });
+
+          document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "hidden") pause();
+            else if (isInView) play();
+          });
+
+          if (window.self === window.top && "IntersectionObserver" in window) {
+            const visibilityObserver = new IntersectionObserver(
+              ([entry]) => setVisible(entry.isIntersecting),
+              { threshold: 0.35 },
+            );
+            visibilityObserver.observe(shell);
+          }
+
           resize();
           render(0);
-          restart();
         };
 
         initSignal(document.querySelector("[data-signal-shell]"));
