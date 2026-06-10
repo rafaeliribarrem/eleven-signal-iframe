@@ -250,11 +250,9 @@
           bindSvgIds(shell);
 
           const duration = 6000;
-          const startDelay = 3000;
           let elapsed = 0;
           let playhead = null;
           let timerId = null;
-          let delayId = null;
           let hasFinished = false;
           let isActive = false;
           let isInView = false;
@@ -293,19 +291,12 @@
             timerId = null;
           };
 
-          const clearDelay = () => {
-            if (!delayId) return;
-            window.clearTimeout(delayId);
-            delayId = null;
-          };
-
           const getProgress = () => {
             const running = playhead ? Date.now() - playhead : 0;
             return Math.min(1, (elapsed + running) / duration);
           };
 
           const pause = () => {
-            clearDelay();
             if (playhead !== null) {
               elapsed += Date.now() - playhead;
               playhead = null;
@@ -322,29 +313,13 @@
             timerId = window.setInterval(tick, 16);
           };
 
-          const schedulePlay = () => {
-            clearDelay();
-            if (hasFinished || isActive) return;
-
-            if (elapsed > 0) {
-              play();
-              return;
-            }
-
-            delayId = window.setTimeout(() => {
-              delayId = null;
-              play();
-            }, startDelay);
-          };
-
           const setVisible = (visible) => {
             isInView = visible;
-            if (visible) schedulePlay();
+            if (visible) play();
             else pause();
           };
 
           const restart = () => {
-            clearDelay();
             elapsed = 0;
             playhead = null;
             hasFinished = false;
@@ -391,18 +366,15 @@
 
           document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === "hidden") pause();
-            else if (isInView) schedulePlay();
+            else if (isInView) play();
           });
 
-          const inIframe = window.self !== window.top;
-
-          if (inIframe) {
-            window.parent.postMessage({ signal: "ready" }, "*");
-            setVisible(true);
-          } else if ("IntersectionObserver" in window) {
+          // IntersectionObserver inside an iframe measures intersection with
+          // the TOP-LEVEL viewport, so no parent-page script is required.
+          if ("IntersectionObserver" in window) {
             const visibilityObserver = new IntersectionObserver(
               ([entry]) => setVisible(entry.isIntersecting),
-              { threshold: 0.2, rootMargin: "0px 0px -5% 0px" },
+              { threshold: 0 },
             );
             visibilityObserver.observe(shell);
           } else {
